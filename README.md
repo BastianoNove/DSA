@@ -1,4 +1,3 @@
 datastructures
 ==============
-
-mplementation of different data structures.
+Implementation of different data structures.
