@@ -74,16 +74,39 @@ void insert(avl_node** root, avl_node* node) {
   else {
     bp->right = node;
   }
-
+  
+  bp = bp->parent;
   node = node->parent;
-  while(node) {
-    balance += node->left ? (node->left)->height : 0;
-    balance -= node->right ? (node->right)->height : 0;
-    if (balance > 0) {
-      left_rotate(node); 
+  while(node && bp) {
+    balance = bp->right ? (bp->right)->height : 0;
+    balance -= bp->left ? (bp->left)->height : 0;
+
+    if (balance == 2 ) {
+      balance = node->right ? (node->right)->height : 0;
+      balance -= node->left ? (node->left)->height : 0;
+      if (balance == -2) {
+        // LR or Double left rotation
+        right_rotate(node);
+        left_rotate(bp);
+      }
+      else {
+        left_rotate(bp);
+      }
     }
-    right_rotate(node);
-    node->parent;
+    else if (balance == -2) {
+      balance = node->right ? (node->right)->height : 0;
+      balance -= node->left ? (node->left)->height : 0;
+      
+      if (balance == 2) {
+        // RL or Double right rotation
+        right_rotate(node);
+        left_rotate(bp);
+      }
+      else {
+        right_rotate(bp);
+      }
+    }
+    node = node->parent;
   }
 }
 
