@@ -9,12 +9,12 @@ int main() {
   root->right = NULL;
 
   avl_node* a = malloc(sizeof(*a));
-  a->key = 4;
+  a->key = 3;
   a->left = NULL;
   a->right = NULL;
   
   avl_node* b = malloc(sizeof(*b));
-  b->key = 6;
+  b->key = 4;
   b->left = NULL;
   b->right = NULL;
   
@@ -57,13 +57,13 @@ void insert(avl_node** root, avl_node* node) {
     if (node->key < cur->key) {
       cur = cur->left;
       if (hl >= hr) {
-        bp->height = hl + 1; 
+        bp->height += hl + 1; 
       }
     }
     else {
       cur = cur->right;
       if (hr >= hl) {
-        bp->height = hr + 1;
+        bp->height += hr + 1;
       }
     }
   }
@@ -78,32 +78,32 @@ void insert(avl_node** root, avl_node* node) {
   bp = bp->parent;
   node = node->parent;
   while(node && bp) {
-    balance = bp->right ? (bp->right)->height : 0;
-    balance -= bp->left ? (bp->left)->height : 0;
+    balance = bp->right ? (bp->right)->height+1 : 0;
+    balance -= bp->left ? (bp->left)->height+1 : 0;
 
     if (balance == 2 ) {
-      balance = node->right ? (node->right)->height : 0;
-      balance -= node->left ? (node->left)->height : 0;
-      if (balance == -2) {
+      balance = node->right ? (node->right)->height+1 : 0;
+      balance -= node->left ? (node->left)->height+1 : 0;
+      if (balance < 0) {
         // LR or Double left rotation
-        right_rotate(node);
-        left_rotate(bp);
+        right_rotate(bp);
+        left_rotate(node);
       }
       else {
-        left_rotate(bp);
+        left_rotate(node);
       }
     }
     else if (balance == -2) {
-      balance = node->right ? (node->right)->height : 0;
-      balance -= node->left ? (node->left)->height : 0;
+      balance = node->right ? (node->right)->height+1 : 0;
+      balance -= node->left ? (node->left)->height+1 : 0;
       
-      if (balance == 2) {
+      if (balance > 0) {
         // RL or Double right rotation
-        right_rotate(node);
-        left_rotate(bp);
+        right_rotate(bp);
+        left_rotate(node);
       }
       else {
-        right_rotate(bp);
+        right_rotate(node);
       }
     }
     node = node->parent;
