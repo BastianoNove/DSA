@@ -3,17 +3,17 @@
 #include <stdlib.h>
 
 int main() {
-  avl_node* root = malloc(sizeof(*root));
+  avl_node_t* root = malloc(sizeof(*root));
   root->key = 5;
   root->left = NULL;
   root->right = NULL;
 
-  avl_node* a = malloc(sizeof(*a));
+  avl_node_t* a = malloc(sizeof(*a));
   a->key = 3;
   a->left = NULL;
   a->right = NULL;
   
-  avl_node* b = malloc(sizeof(*b));
+  avl_node_t* b = malloc(sizeof(*b));
   b->key = 4;
   b->left = NULL;
   b->right = NULL;
@@ -23,8 +23,8 @@ int main() {
   return 0;
 }
 
-avl_node* search(avl_node* root, int key) {
-  avl_node* cur = root;
+avl_node_t* search(avl_node_t* root, int key) {
+  avl_node_t* cur = root;
   while(cur && cur->key != key) {
     if (key < cur->key) {
       cur = cur->left;
@@ -36,9 +36,9 @@ avl_node* search(avl_node* root, int key) {
   return cur;
 }
 
-void insert(avl_node** root, avl_node* node) {
-  avl_node* bp;
-  avl_node* cur;
+void insert(avl_node_t** root, avl_node_t* node) {
+  avl_node_t* bp;
+  avl_node_t* cur;
   int hl, hr; //height left, height right;
   int balance;
   bp = cur = *root;
@@ -86,8 +86,8 @@ void insert(avl_node** root, avl_node* node) {
       balance -= node->left ? (node->left)->height+1 : 0;
       if (balance < 0) {
         // LR or Double left rotation
-        right_rotate(bp);
-        left_rotate(node);
+        right_rotate(node);
+        left_rotate(bp);
       }
       else {
         left_rotate(node);
@@ -99,8 +99,8 @@ void insert(avl_node** root, avl_node* node) {
       
       if (balance > 0) {
         // RL or Double right rotation
-        left_rotate(bp);
-        right_rotate(node);
+        left_rotate(node);
+        right_rotate(bp);
       }
       else {
         right_rotate(node);
@@ -110,11 +110,11 @@ void insert(avl_node** root, avl_node* node) {
   }
 }
 
-avl_node* delete(int key) {
+avl_node_t* delete(int key) {
 }
 
-void left_rotate(avl_node* x) {
-  avl_node* y = x->right;
+void left_rotate(avl_node_t* x) {
+  avl_node_t* y = x->right;
   x->right = y->left;
   y->left = x;
   y->parent = x->parent;
@@ -129,8 +129,8 @@ void left_rotate(avl_node* x) {
   }
 }
 
-void right_rotate(avl_node* y) {
-  avl_node* x = y->left;
+void right_rotate(avl_node_t* y) {
+  avl_node_t* x = y->left;
   y->left = x->right;
   x->right = y;
   x->parent = y->parent;
