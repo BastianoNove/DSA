@@ -4,17 +4,17 @@
 
 int main() {
   avl_node_t* root = malloc(sizeof(*root));
-  root->key = 5;
+  root->key = 3;
   root->left = NULL;
   root->right = NULL;
 
   avl_node_t* a = malloc(sizeof(*a));
-  a->key = 3;
+  a->key = 4;
   a->left = NULL;
   a->right = NULL;
   
   avl_node_t* b = malloc(sizeof(*b));
-  b->key = 4;
+  b->key = 5;
   b->left = NULL;
   b->right = NULL;
   
@@ -77,7 +77,7 @@ void insert(avl_node_t** root, avl_node_t* node) {
   
   bp = bp->parent;
   node = node->parent;
-  while(node && bp) {
+  while(bp) {
     balance = bp->right ? (bp->right)->height+1 : 0;
     balance -= bp->left ? (bp->left)->height+1 : 0;
 
@@ -90,7 +90,7 @@ void insert(avl_node_t** root, avl_node_t* node) {
         left_rotate(bp);
       }
       else {
-        left_rotate(node);
+        left_rotate(bp);
       }
     }
     else if (balance == -2) {
@@ -103,11 +103,14 @@ void insert(avl_node_t** root, avl_node_t* node) {
         right_rotate(bp);
       }
       else {
-        right_rotate(node);
+        right_rotate(bp);
       }
     }
     node = node->parent;
+    bp = bp->parent;
   }
+
+  *root = node;
 }
 
 avl_node_t* delete(int key) {
