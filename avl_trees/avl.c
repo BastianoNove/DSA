@@ -5,20 +5,9 @@
 const Q_SIZE = 100;
 
 int main() {
-  avl_node_t* root = malloc(sizeof(*root));
-  root->key = 3;
-  root->left = NULL;
-  root->right = NULL;
-
-  avl_node_t* a = malloc(sizeof(*a));
-  a->key = 4;
-  a->left = NULL;
-  a->right = NULL;
-  
-  avl_node_t* b = malloc(sizeof(*b));
-  b->key = 5;
-  b->left = NULL;
-  b->right = NULL;
+  avl_node_t* root = create_node(3);
+  avl_node_t* a = create_node(4);
+  avl_node_t* b = create_node(5); 
   
   insert(&root, a);
   insert(&root, b); 
@@ -177,4 +166,12 @@ void print_tree(avl_node_t* root) {
     }
     j++;
   }
+}
+
+avl_node_t* create_node(int key) {
+  avl_node_t* node = malloc(sizeof(*node));
+  node->key = key; 
+  node->left = NULL;
+  node->right = NULL;
+  return node;
 }
