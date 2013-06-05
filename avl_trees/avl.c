@@ -1,6 +1,8 @@
 #include "avl.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+const Q_SIZE = 100;
 
 int main() {
   avl_node_t* root = malloc(sizeof(*root));
@@ -20,6 +22,7 @@ int main() {
   
   insert(&root, a);
   insert(&root, b); 
+  print_tree(root);
   return 0;
 }
 
@@ -88,15 +91,10 @@ void insert(avl_node_t** root, avl_node_t* node) {
         // LR or Double left rotation
         right_rotate(node);
         node = bp->right;
-        left_rotate(bp);
-        bp = bp->parent;
-        node = bp->left;
       }
-      else {
-        left_rotate(bp);
-        bp = bp->parent;
-        node = bp->left;
-      }
+      left_rotate(bp);
+      bp = bp->parent;
+      node = bp->left;
     }
     else if (balance == -2) {
       balance = node->right ? (node->right)->height+1 : 0;
@@ -106,15 +104,10 @@ void insert(avl_node_t** root, avl_node_t* node) {
         // RL or Double right rotation
         left_rotate(node);
         node = bp->left;
-        right_rotate(bp);
-        bp = bp->parent;
-        node = node->right;
       }
-      else {
-        right_rotate(bp);
-        bp = bp->parent;
-        node = node->right;
-      }
+      right_rotate(bp);
+      bp = bp->parent;
+      node = node->right;
     }
     node = node->parent;
     bp = bp->parent;
@@ -155,5 +148,33 @@ void right_rotate(avl_node_t* y) {
     else {
       x->parent->left = x;
     }
+  }
+}
+
+void print_tree(avl_node_t* root) { 
+  avl_node_t* queue[Q_SIZE];
+  memset(queue, 0, Q_SIZE);
+  avl_node_t* cur = root;
+  int i = 1, j = 0 ;
+  int left, right;
+  queue[0] = root;
+  while(queue[j]) {
+    cur = queue[j];
+    printf("%d\n", cur->key);
+    if (cur->left) {
+      printf("left %d\n", cur->left->key);
+      queue[i++] = cur->left;
+    }
+    else {
+      printf("left empty\n");
+    }
+    if (cur->right) {
+      printf("right %d\n", cur->right->key);
+      queue[i++] = cur->right;
+    }
+    else {
+      printf("right empty\n");
+    }
+    j++;
   }
 }

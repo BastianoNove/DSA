@@ -16,4 +16,5 @@ avl_node_t* delete(int key);
 
 void left_rotate(avl_node_t*);
 void right_rotate(avl_node_t*);
+void print_tree(avl_node_t*);
 #endif
