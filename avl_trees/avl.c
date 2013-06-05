@@ -87,10 +87,15 @@ void insert(avl_node_t** root, avl_node_t* node) {
       if (balance < 0) {
         // LR or Double left rotation
         right_rotate(node);
+        node = bp->right;
         left_rotate(bp);
+        bp = bp->parent;
+        node = bp->left;
       }
       else {
         left_rotate(bp);
+        bp = bp->parent;
+        node = bp->left;
       }
     }
     else if (balance == -2) {
@@ -100,10 +105,15 @@ void insert(avl_node_t** root, avl_node_t* node) {
       if (balance > 0) {
         // RL or Double right rotation
         left_rotate(node);
+        node = bp->left;
         right_rotate(bp);
+        bp = bp->parent;
+        node = node->right;
       }
       else {
         right_rotate(bp);
+        bp = bp->parent;
+        node = node->right;
       }
     }
     node = node->parent;
