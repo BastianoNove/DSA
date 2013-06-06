@@ -5,13 +5,14 @@
 const Q_SIZE = 100;
 
 void test_one() {
-  avl_node_t* root, cur;
+  avl_node_t* root, *cur;
   int i = 0;
   int k;
   int vals[9] = {9,8,7,6,5,4,3,2,1};
   root = create_node(10);
   while(i < 9) {
-    insert(&root, create_node(vals[i++]));
+    cur = create_node(vals[i++]);
+    insert(&root, cur);
   }
   print_tree(root);
 }
@@ -115,6 +116,7 @@ avl_node_t* delete(int key) {
 }
 
 void left_rotate(avl_node_t* x) {
+  int hl, hr;
   avl_node_t* y = x->right;
   x->right = y->left;
   y->left = x;
@@ -128,9 +130,34 @@ void left_rotate(avl_node_t* x) {
       y->parent->left = y;
     }
   }
+  //adjust heights of rotated trees
+  hl = x->left ? x->left->height + 1 : 0;
+  hr = x->height ? x->right->height + 1 : 0;
+  x->height = hr ;
+  if (hl > hr) {
+    x->height = hl;
+  }
+  y->height = y->right ? y->right->height + 1 : 0;
+  if (x->height > y->height){
+    y->height = x->height + 1;
+  }
+  //adjust heights from y to top
+  y = y->parent;
+  while(y) {
+    hl = y->left ? y->left->height : 0;
+    hr = y->right ? y->right->height : 0;
+    if (hr > hl) {
+      y->height = hr + 1;
+    }
+    else {
+      y->height = hl + 1;
+    }
+    y = y->parent;
+  }
 }
 
 void right_rotate(avl_node_t* y) {
+  int hr, hl;
   avl_node_t* x = y->left;
   y->left = x->right;
   x->right = y;
@@ -143,6 +170,31 @@ void right_rotate(avl_node_t* y) {
     else {
       x->parent->left = x;
     }
+  }
+  //adjust heights of rotated trees
+  hl = y->left ? y->left->height + 1 : 0;
+  hr = y->right ? y->right->height + 1 : 0;
+  y->height = hr;
+  if (hl > hr) {
+    y->height = hl;
+  }
+  x->height = x->left ? x->left->height + 1 : 0;
+  if (y->height > x->height) {
+    x->height = y->height + 1;
+  }
+  //adjust heights from x to top
+  y = x;
+  x = x->parent;
+  while(x) {
+    hl = x->left ? x->left->height : 0;
+    hr = x->right ? x->right->height : 0;
+    if (hr > hl) {
+      x->height = hr +  1;
+    }
+    else {
+      x->height = hl + 1;
+    }
+    x = x->parent;
   }
 }
 
