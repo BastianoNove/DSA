@@ -4,14 +4,20 @@
 #include <string.h>
 const Q_SIZE = 100;
 
-int main() {
-  avl_node_t* root = create_node(3);
-  avl_node_t* a = create_node(4);
-  avl_node_t* b = create_node(5); 
-  
-  insert(&root, a);
-  insert(&root, b); 
+void test_one() {
+  avl_node_t* root, cur;
+  int i = 0;
+  int k;
+  int vals[9] = {9,8,7,6,5,4,3,2,1};
+  root = create_node(10);
+  while(i < 9) {
+    insert(&root, create_node(vals[i++]));
+  }
   print_tree(root);
+}
+
+int main() {
+  test_one();
   return 0;
 }
 
