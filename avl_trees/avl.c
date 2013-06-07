@@ -10,18 +10,26 @@ void test_one() {
   avl_node_t **root = &node;
   int vals[9] = {9,8,7,6,5,4,3,2,1};
   build_tree(root, vals, 9);
-  assert(check_balance(*root, 9));
-  assert(check_bst(*root, 9));
+  assert(check_balance(*root, 10));
+  assert(check_bst(*root, 10));
 }
 
 void test_two() {
-  avl_node_t **root, *node;
-  node = create_node(10);
-  root = &node;
-  int vals[9] = {9,8,7,6,5,4,3,2,1};
+  avl_node_t *node = create_node(1);
+  avl_node_t **root = &node;
+  int vals[9] = {2,3,4,5,6,7,8,9,10};
   build_tree(root, vals, 9);
-  print_tree(*root);
+  assert(check_balance(*root, 10));
+  assert(check_bst(*root, 10));
+}
 
+void test_three() {
+  avl_node_t *node = create_node(13);
+  avl_node_t **root = &node;
+  int vals[7] = {5,2,3,11,19,1,9};
+  build_tree(root, vals, 7);
+  assert(check_balance(*root, 8));
+  assert(check_bst(*root, 8));
 }
 
 void build_tree(avl_node_t** root, int vals[], int vals_size) {
@@ -85,6 +93,8 @@ bool check_bst(avl_node_t* root, int n) {
 
 int main() {
   test_one();
+  test_two();
+  test_three();
   printf("tests pass\n");
   return 0;
 }
@@ -199,7 +209,7 @@ void left_rotate(avl_node_t* x) {
   }
   //adjust heights of rotated trees
   hl = x->left ? x->left->height + 1 : 0;
-  hr = x->height ? x->right->height + 1 : 0;
+  hr = x->right ? x->right->height + 1 : 0;
   x->height = hr ;
   if (hl > hr) {
     x->height = hl;
