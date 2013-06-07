@@ -2,23 +2,90 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 const Q_SIZE = 100;
 
 void test_one() {
-  avl_node_t* root, *cur;
-  int i = 0;
-  int k;
+  avl_node_t *node = create_node(10);
+  avl_node_t **root = &node;
   int vals[9] = {9,8,7,6,5,4,3,2,1};
-  root = create_node(10);
-  while(i < 9) {
+  build_tree(root, vals, 9);
+  assert(check_balance(*root, 9));
+  assert(check_bst(*root, 9));
+}
+
+void test_two() {
+  avl_node_t **root, *node;
+  node = create_node(10);
+  root = &node;
+  int vals[9] = {9,8,7,6,5,4,3,2,1};
+  build_tree(root, vals, 9);
+  print_tree(*root);
+
+}
+
+void build_tree(avl_node_t** root, int vals[], int vals_size) {
+  avl_node_t* cur;
+  int i = 0, k;
+  while(i < vals_size) {
     cur = create_node(vals[i++]);
-    insert(&root, cur);
+    insert(root, cur);
   }
-  print_tree(root);
+}
+
+bool check_balance(avl_node_t* root, int n) {
+  avl_node_t* cur;
+  avl_node_t* queue[n];
+  int i = 1, j = 0, hl, hr;
+  memset(queue, 0, n);
+  queue[0] = root;
+  while(queue[j]) {
+    cur = queue[j];
+    hl = cur->left ? cur->left->height : 0;
+    hr = cur->right ? cur->right->height : 0;
+    if (abs(hr-hl) > 2) {
+      return false;
+    }
+    if(cur->left) { 
+      queue[i++] = cur->left;
+    }
+    if(cur->right) {
+      queue[i++] = cur->right;
+    }
+    j++;
+  }
+  return true;
+}
+
+bool check_bst(avl_node_t* root, int n) {
+  avl_node_t* cur;
+  avl_node_t* queue[n];
+  int i = 1, j = 0;
+  memset(queue, 0, n);
+  queue[0] = root;
+  while(queue[j]) {
+    cur = queue[j];
+    if(cur->left){
+     queue[i++] = cur->left;
+     if (cur->left->key > cur->key) {
+      return false;
+     }
+    }
+
+    if (cur->right){
+      queue[i++] = cur->right;
+      if (cur->right->key < cur->key) {
+        return false;
+      }
+    }
+    j++;
+  }
+  return true;
 }
 
 int main() {
   test_one();
+  printf("tests pass\n");
   return 0;
 }
 
