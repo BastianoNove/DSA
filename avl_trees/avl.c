@@ -32,6 +32,15 @@ void test_three() {
   assert(check_bst(*root, 8));
 }
 
+void test_four() {
+  avl_node_t *node = create_node(20);
+  avl_node_t **root = &node;
+  int vals[6] = {8,22,4,12,10,14};
+  build_tree(root, vals, 6);
+  assert(check_balance(*root, 7));
+  assert(check_bst(*root, 7));
+}
+
 void build_tree(avl_node_t** root, int vals[], int vals_size) {
   avl_node_t* cur;
   int i = 0, k;
@@ -95,6 +104,7 @@ int main() {
   test_one();
   test_two();
   test_three();
+  test_four();
   printf("tests pass\n");
   return 0;
 }
@@ -196,6 +206,8 @@ void balance_tree(avl_node_t** root, avl_node_t* bp, avl_node_t* node) {
 
 avl_node_t* delete(avl_node_t** root, int key) {
   avl_node_t* y;
+  avl_node_t* z;
+  int temp_height, temp_key;
   avl_node_t* x = search(*root, key);
   if (x) {
     if (x->height == 0) {
@@ -209,21 +221,55 @@ avl_node_t* delete(avl_node_t** root, int key) {
        else if(y && x == y->right) {
          y->right = NULL;
        }
+       balance_tree(root, y->parent, y);
        return x;
     }
     else if (x->height == 1 && ((x->left && !x->right) || (!x->left && x->right))) {
-      
+      y = x->left ? x->left : x->right;
+      temp_height  = y->height;
+      temp_key = y->key;
+      y->key = x->key;
+      y->height = x->height;
+      y->left = y->right = NULL;
+      x->key = temp_key;
+      x->height = 0;
+      if (y == x->left) {
+        x->left = NULL;
+      }
+      else {
+        x->right = NULL;
+      }
+      balance_tree(root, x->parent, x);
+      return  y;
     }
     else {
-
+      z =  successor(x);
+      temp_height = x->height;
+      temp_key = x->key;
+      x->key = z->key;
+      x->height = z->height;
+      z->key = temp_key;
+      z->height= temp_height;
+      if (z->parent->left == z){
+        z->parent->left = NULL;
+      }
+      else {
+        z->parent->right = NULL;
+      }
+      balance_tree(root, z->parent->parent, z->parent);
+      return z;
     }
   }
+  return NULL;
 }
 
 void left_rotate(avl_node_t* x) {
   int hl, hr;
   avl_node_t* y = x->right;
   x->right = y->left;
+  if (x->right) {
+    x->right->parent = x; 
+  }
   y->left = x;
   y->parent = x->parent;
   x->parent = y;
@@ -265,6 +311,9 @@ void right_rotate(avl_node_t* y) {
   int hr, hl;
   avl_node_t* x = y->left;
   y->left = x->right;
+  if (y->left) {
+    y->left->parent = y;
+  }
   x->right = y;
   x->parent = y->parent;
   y->parent = x;
