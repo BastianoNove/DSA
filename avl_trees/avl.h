@@ -13,11 +13,16 @@ typedef enum { false, true } bool;
 
 avl_node_t* search(avl_node_t* root, int key);
 void insert(avl_node_t** root, avl_node_t* node);
-avl_node_t* delete(int key);
+avl_node_t* delete(avl_node_t** root, int key);
 
 void left_rotate(avl_node_t*);
 void right_rotate(avl_node_t*);
 
+avl_node_t* predecessor(avl_node_t*);
+avl_node_t* successor(avl_node_t*);
+
+avl_node_t* tree_minimum(avl_node_t*);
+avl_node_t* tree_maximum(avl_node_t*);
 avl_node_t* create_node(int);
 void print_tree(avl_node_t*);
 void build_tree(avl_node_t**, int[], int);

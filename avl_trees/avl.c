@@ -189,7 +189,30 @@ void insert(avl_node_t** root, avl_node_t* node) {
   *root = node;
 }
 
-avl_node_t* delete(int key) {
+avl_node_t* delete(avl_node_t** root, int key) {
+  avl_node_t* y;
+  avl_node_t* x = search(*root, key);
+  if (x) {
+    if (x->height == 0) {
+       y = x->parent;
+       if (y == *root) {
+         *root = NULL;
+       }
+       if (y && x == y->left) {
+         y->left = NULL;
+       }
+       else if(y && x == y->right) {
+         y->right = NULL;
+       }
+       return x;
+    }
+    else if (x->height == 1 && ((x->left && !x->right) || (!x->left && x->right))) {
+      
+    }
+    else {
+
+    }
+  }
 }
 
 void left_rotate(avl_node_t* x) {
@@ -273,6 +296,46 @@ void right_rotate(avl_node_t* y) {
     }
     x = x->parent;
   }
+}
+
+avl_node_t* predecessor(avl_node_t* x) {
+ avl_node_t* y;
+ if (x->left) {
+   return tree_maximum(x->left);
+ }
+ y = x->parent;
+ while(y && x == y->left) {
+   x = y;
+   y = y->parent;
+ }
+ return y;
+}
+
+avl_node_t* successor(avl_node_t* x) {
+  avl_node_t* y;
+  if (x->right) {
+    return tree_minimum(x->right);
+  }
+  y = x->parent;
+  while (y && x == y->right) {
+    x = y;
+    y = y->parent;
+  }
+  return y;
+}
+
+avl_node_t* tree_minimum(avl_node_t* x) {
+  while (x->left) {
+    x = x->left;
+  }
+  return x;
+}
+
+avl_node_t* tree_maximum(avl_node_t* x) {
+  while (x->right) {
+    x = x->right;
+  }
+  return x;
 }
 
 void print_tree(avl_node_t* root) { 
