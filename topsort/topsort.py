@@ -3,7 +3,6 @@
 from collections import defaultdict 
 
 def make_graph(edges):
-  vertices = set(u for u,v in edges)
   graph = defaultdict(list)
   for u,v in edges:
     graph[u].append(v)
@@ -11,7 +10,6 @@ def make_graph(edges):
   
 def topsort(graph):
   output = []
-  outgoing_vertices = graph.keys()
   incoming_vertices = []
   for edge, vertices in graph.items():
     if len(vertices) == 1:
@@ -19,8 +17,7 @@ def topsort(graph):
         continue
     incoming_vertices += vertices
   incoming_vertices = list(set(incoming_vertices))
-  start = list(set(outgoing_vertices)-set(incoming_vertices))
-  stack = [] + start
+  stack = list(set(graph.keys())-set(incoming_vertices))
   while stack:
     e = stack[-1]
     edges = [edge for edge in graph[e] if edge!=e]
@@ -35,7 +32,15 @@ def topsort(graph):
   output.reverse()
   return output
 
-graph = make_graph([('a','b'), ('a','d'), ('b','c'), ('c','d'),
-         ('d', 'e'), ('c', 'e'), ('f','f')])
 
-print topsort(graph)
+def test():
+  graph = make_graph([('a','b'), ('a','d'), ('b','c'), ('c','d'),
+                      ('d', 'e'), ('c', 'e'), ('f','f')])
+  print topsort(graph)
+  graph = make_graph([(7,11), (5,11), (7,8), (3,8), (3,10), (11,2), (11,9), (11,10), (8,9)]) 
+  print topsort(graph)
+  graph = make_graph([('g','h'), ('a', 'h'), ('a', 'b'), ('b', 'c'), ('c', 'f'), ('d', 'c'), ('d', 'e'),
+                    ('e', 'f'), ('i', 'i')]) 
+  print topsort(graph)
+
+test()
