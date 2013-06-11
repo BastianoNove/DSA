@@ -17,6 +17,7 @@ avl_node_t* delete(avl_node_t** root, int key);
 
 void left_rotate(avl_node_t*);
 void right_rotate(avl_node_t*);
+void balance_tree(avl_node_t** root, avl_node_t* bp, avl_node_t* node);
 
 avl_node_t* predecessor(avl_node_t*);
 avl_node_t* successor(avl_node_t*);

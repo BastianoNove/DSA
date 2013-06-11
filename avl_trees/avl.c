@@ -150,7 +150,12 @@ void insert(avl_node_t** root, avl_node_t* node) {
   else {
     bp->right = node;
   }
-  
+
+  balance_tree(root, bp, node);
+}
+
+void balance_tree(avl_node_t** root, avl_node_t* bp, avl_node_t* node) {
+  int balance;
   bp = bp->parent;
   node = node->parent;
   while(bp) {
