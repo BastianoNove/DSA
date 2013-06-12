@@ -1,0 +1,20 @@
+##############################
+# Editor 
+##############################
+#Ignore swap files
+*.swp
+
+##############################
+# Python
+##############################
+#Ignore Python compiled bytecode
+*.pyc
+
+##############################
+# C
+##############################
+#Ignore debugging symbol files
+*.dSYM
+
+#Ignore compiled header files
+*.gch
