@@ -1,3 +1,3 @@
-datastructures
+DSA
 ==============
-Implementation of different data structures.
+Implementation of different data structures and algorithms.
