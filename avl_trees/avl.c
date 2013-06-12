@@ -37,8 +37,11 @@ void test_four() {
   avl_node_t **root = &node;
   int vals[6] = {8,22,4,12,10,14};
   build_tree(root, vals, 6);
-  assert(check_balance(*root, 7));
-  assert(check_bst(*root, 7));
+  delete(root, 10);
+  delete(root, 20);
+  delete(root, 12);
+  assert(check_balance(*root, 4));
+  assert(check_bst(*root, 4));
 }
 
 void build_tree(avl_node_t** root, int vals[], int vals_size) {
@@ -56,7 +59,7 @@ bool check_balance(avl_node_t* root, int n) {
   int i = 1, j = 0, hl, hr;
   memset(queue, 0, n);
   queue[0] = root;
-  while(queue[j]) {
+  while(j < n) {
     cur = queue[j];
     hl = cur->left ? cur->left->height : 0;
     hr = cur->right ? cur->right->height : 0;
@@ -80,7 +83,7 @@ bool check_bst(avl_node_t* root, int n) {
   int i = 1, j = 0;
   memset(queue, 0, n);
   queue[0] = root;
-  while(queue[j]) {
+  while(j < n) {
     cur = queue[j];
     if(cur->left){
      queue[i++] = cur->left;
