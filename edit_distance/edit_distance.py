@@ -1,19 +1,19 @@
+#!/usr/bin/env python
+
 def edit_distance(x, y):
-    xn = len(x)
-    yn = len(y)
     x = ' ' + x
     y = ' ' + y
-    dp = [[0 for _ in range(yn+1)] for _ in range(xn+1)]
-    dp[0] = [0] + [i for i in range(1, yn+1)]
-    for i in range(1,xn+1):
+    dp = [[0 for _ in range(len(y))] for _ in range(len(x))]
+    dp[0] = [0] + [i for i in range(1, len(y))]
+    for i in range(1, len(x)):
         dp[i][0] = i
 
-    for i in range(1, xn+1):
-        for j in range(1,yn+1):
+    for i in range(1, len(x)):
+        for j in range(1,len(y)):
             dp[i][j] = min(dp[i-1][j] + 1,
                            dp[i][j-1] + 1,
                            dp[i-1][j-1] + int(x[i]!=y[j]))
-    return dp[xn][yn]
+    return dp[len(x)-1][len(y)-1]
 
 def print_table(table):
     for row in table:
