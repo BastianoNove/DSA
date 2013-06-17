@@ -1,4 +1,4 @@
-from node import Node 
+from node import Node
 
 def make_graph(edges):
     graph = dict()
@@ -8,8 +8,7 @@ def make_graph(edges):
         vertices.append(v)
     vertices = list(set(vertices))
     for v in vertices:
-        to_insert = Node(v)
-        graph[v] = to_insert 
+        graph[v] = Node(v)
 
     for u,v in edges:
         graph[u].edges.append(graph[v])
