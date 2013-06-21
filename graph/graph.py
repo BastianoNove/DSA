@@ -1,18 +1,25 @@
 from collections import defaultdict
 from node import Node
 
+class Graph(object):
+    def __init__(self):
+        self.vertices = dict() 
+        self.edges = []
+
 def make_graph(edges):
-    graph = dict()
+    graph = Graph()
     vertices = []
     for u, v in edges:
         vertices.append(u)
         vertices.append(v)
     vertices = list(set(vertices))
     for v in vertices:
-        graph[v] = Node(v)
+        graph.vertices[v] = Node(v)
 
     for u,v in edges:
-        graph[u].edges.append(graph[v])
+        graph.vertices[u].edges.append(graph[v])
+
+    graph.extend(edges)
 
     return graph
 
@@ -25,7 +32,7 @@ def weights(edges, value = float('inf')):
     return w
     
 def init_single_source(graph, source):
-    for _, vertex in graph.iteritems():
+    for vertex in graph.vertices():
         vertex.d = float('inf')
         vertex.predecesor = None
     source.d = 0
