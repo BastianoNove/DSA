@@ -1,3 +1,4 @@
+from collections import defaultdict
 from node import Node
 
 def make_graph(edges):
@@ -14,3 +15,13 @@ def make_graph(edges):
         graph[u].edges.append(graph[v])
 
     return graph
+
+def weights(edges, value = float('inf')):
+    '''Returns a defaultdict and initializes all non-existing edges
+       to value'''
+    w = defaultdict(lambda: value)
+    for key, val in edges.items():
+        w[key] = val
+    return w
+    
+
