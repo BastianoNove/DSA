@@ -20,8 +20,18 @@ def weights(edges, value = float('inf')):
     '''Returns a defaultdict and initializes all non-existing edges
        to value'''
     w = defaultdict(lambda: value)
-    for key, val in edges.items():
-        w[key] = val
+    for u, v in edges.items():
+        w[(u, v)] = val
     return w
     
+def init_single_source(graph, source):
+    for _, vertex in graph.iteritems():
+        vertex.d = float('inf')
+        vertex.predecesor = None
+    source.d = 0
+
+def relax(u, v, w):
+    if v.d > (u.d + w[(u.key, v.key)]):
+        v.d = u.d + w[(u.key, v.key)]
+        v.predecesor = u
 
