@@ -17,9 +17,9 @@ def make_graph(edges):
         graph.vertices[v] = Node(v)
 
     for u,v in edges:
-        graph.vertices[u].edges.append(graph[v])
+        graph.vertices[u].edges.append(graph.vertices[v])
 
-    graph.extend(edges)
+    graph.edges.extend(edges)
 
     return graph
 
