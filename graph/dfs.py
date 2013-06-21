@@ -11,5 +11,5 @@ def dfs(node, visited=[]):
     print(node.key)
 
 g = graph.make_graph([('y','z'), ('a','b'), ('a', 'd'),  ('b', 'c'), ('c', 'd'), ('b', 'y'), ('c', 'a'), ('d', 'y'), ])
-dfs(g['a'])
+dfs(g.vertices['a'])
 

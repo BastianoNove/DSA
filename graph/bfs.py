@@ -14,4 +14,4 @@ def bfs(node):
                 queue.append(vertex)
 
 g = graph.make_graph([('y','z'), ('a','b'), ('a', 'd'),  ('b', 'c'), ('c', 'd'), ('b', 'y'), ('c', 'a'), ('d', 'y'), ])
-bfs(g['a'])
+bfs(g.vertices['a'])
