@@ -17,6 +17,8 @@ def make_graph(edges):
         graph.vertices[v] = Node(v)
 
     for u,v in edges:
+        if u == v:
+            continue
         graph.vertices[u].edges.append(graph.vertices[v])
 
     graph.edges.extend(edges)
