@@ -24,5 +24,7 @@ def test():
     cost = graph_utils.weights(cost)
     g = graph_utils.make_graph(cost.keys())
     dijkstra(g, cost, g.vertices[1])
+    for vertex in g.vertices.values():
+        print(vertex)
 
 test()
