@@ -18,10 +18,10 @@ def merge_sort(sequence):
     return merged
 
 def test():
-    sequence = [100*random.random() for x in range(100)]
+    sequence = [int(1000*random.random()) for x in range(100)]
     test_sequence = sorted(sequence)
     sequence = merge_sort(sequence)
-    assert(all(sequence[i] == test_sequence[i] for i in range(len(sequence))))
+    assert(all(sequence[i] == test_sequence[i] for i in range(len(test_sequence))))
     print('tests pass')
 test()
 
