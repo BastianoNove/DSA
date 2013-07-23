@@ -13,6 +13,8 @@ def merge_sort(sequence):
         else:
             merged.append(r[0])
             r = r[1:]
+    merged.extend(l)
+    merged.extend(r)
     return merged
 
 def test():
