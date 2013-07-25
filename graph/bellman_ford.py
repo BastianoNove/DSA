@@ -6,7 +6,7 @@ def bellman_ford(g, w, s):
         for u,v in graph.edges:
             graph.relax(graph.vertices[u], graph.vertices[v], w)
     for u,v in graph.edges:
-        if graph.vertices[v].d > graph.vertices[u].d + w[(u,v)]
+        if graph.vertices[v].d > graph.vertices[u].d + w[(u,v)]:
             return False
     return True
 
@@ -16,6 +16,7 @@ def test():
              (5,4) : 6 }
     w = graph.weights(w) 
     g = graph.make_graph(w.keys())
-    print 'tests pass'
+    print(bellman_ford(g, w, g.vertices[1]))
+    print('tests pass')
 
 test()
