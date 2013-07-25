@@ -14,9 +14,9 @@ class Heap(object):
     def heapify(self, i):
         assert(i>=0)
         left = i * 2 + 1
-        right = i * 2 + 2 
+        right = i * 2 + 2
         if left <= self.size() and self.A[left] > self.A[i]:
-            largest = left 
+            largest = left
         else:
             largest = i
         if right <= self.size() and self.A[right] > self.A[largest]:
@@ -43,9 +43,10 @@ def check_heap(heap):
             assert(heap.A[i] >= heap.A[right])
 
 def test():
-    for i in range(random.randint(1,100)*100):
-        heap = Heap([int(random.random()*100) for _ in range(random.randint(1, 100))])
+    for i in range(1000):
+        heap = Heap([random.randint(1,1000) for _ in range(random.randint(1, 100))])
         check_heap(heap)
     print('tests pass')
 
-test()
+if __name__ == '__main__':
+    test()
