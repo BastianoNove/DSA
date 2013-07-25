@@ -4,11 +4,12 @@ class Heap(object):
     def __init__(self, a=None):
         self.A = []
         if a is not None:
-            self.A = a 
-            self.build()
+            self.A.extend(a)
+        self._size = len(self.A)-1
+        self.build()
 
     def size(self):
-        return len(self.A) - 1
+        return self._size
 
     def heapify(self, i):
         assert(i>=0)
