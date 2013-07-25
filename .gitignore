@@ -18,3 +18,9 @@
 
 #Ignore compiled header files
 *.gch
+
+##############################
+# MacOS 
+##############################
+#Ignore DS_Store
+.DS_Store

@@ -8,7 +8,7 @@ def bfs(node):
     while queue:
         v = queue.popleft()
         visited.append(v)
-        print v.key
+        print(v.key)
         for vertex in v.edges:
             if vertex not in visited and vertex not in queue:
                 queue.append(vertex)
