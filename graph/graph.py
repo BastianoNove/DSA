@@ -28,7 +28,7 @@ def weights(edges, value = float('inf')):
        to value'''
     w = defaultdict(lambda: value)
     for u, v in edges.items():
-        w[(u, v)] = val
+        w[(u, v)] = value
     return w
     
 def init_single_source(graph, source):
