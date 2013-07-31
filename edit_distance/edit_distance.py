@@ -26,4 +26,5 @@ def test():
     assert(edit_distance('free', 'style') == 4)
     print('test pass')
 
-test()
+if __name__ == '__main__':
+    test()
