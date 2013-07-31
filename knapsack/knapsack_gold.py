@@ -3,7 +3,7 @@
 def knapsack(w, c):
     w.sort()
     w = [0] + w
-    dp = [[0 for _ in xrange(c+1)] for _ in xrange(len(w))]
+    dp = [[0 for _ in range(c+1)] for _ in range(len(w))]
     dp[0][0] = 1
     for i in range(1, len(w)):
         for j in range(1, c+1):
@@ -27,14 +27,15 @@ def backtrack(dp, c, w):
 
 def print_table(dp):
     for row in dp:
-        print row
+        print(row)
     print
 
 def test():
     assert(knapsack([3,2,1], 7) == 0)
     assert(knapsack([3,2,1], 5) == 1)
     assert(knapsack([1,11,2,89], 13) == 1)
-    print 'test pass'
+    print('test pass')
 
-test()
+if __name__ == '__main__':
+    test()
 
