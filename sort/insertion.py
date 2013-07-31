@@ -15,4 +15,5 @@ def test():
     assert(all(sequence[i] == test_sequence[i] for i in range(len(sequence))))
     print('tests pass')
 
-test()
+if __name__ == '__main__':
+    test()
