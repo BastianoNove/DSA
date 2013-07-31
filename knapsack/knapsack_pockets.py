@@ -5,7 +5,7 @@ def knapsack_pocket(w, c, p):
         k bars whose weights add up to exactly p?'''
     w = [0] + w
     # dp[i][k][p]  up to ith bar available, k knapsack capacity, p bars
-    dp = [[[0 for _ in xrange(p+1)] for _ in xrange(c+1)] for _ in xrange(len(w))]
+    dp = [[[0 for _ in range(p+1)] for _ in range(c+1)] for _ in range(len(w))]
     for i in range(len(w)):
         dp[i][0][0] = 1
     for i in range(1, len(w)):
@@ -19,12 +19,14 @@ def knapsack_pocket(w, c, p):
 
 def print_table(dp):
     for item  in dp:
-        print item
+        print(item)
     print
 
 def test():
     assert(knapsack_pocket([1,2,3], 6, 3) == 1)
     assert(knapsack_pocket([5,19,21], 3, 1) == 0)
     assert(knapsack_pocket([1,2,3,4,5,6,7,8,9], 45, 9) == 1)
-    print 'test pass' 
-test()
+    print('test pass')
+
+if __name__ == '__main__':
+    test()
