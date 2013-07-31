@@ -23,5 +23,7 @@ def test():
     sequence = merge_sort(sequence)
     assert(all(sequence[i] == test_sequence[i] for i in range(len(test_sequence))))
     print('tests pass')
-test()
+
+if __name__ == '__main__':
+    test()
 
