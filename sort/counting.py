@@ -1,7 +1,7 @@
 import random
 
 def counting_sort(items, k, key=lambda x: x):
-    L = [[] for i in range(k+1)]
+    L = [[] for i in range(k)]
     for j in range(len(items)):
         L[key(items[j])].append(items[j])
     output = []
