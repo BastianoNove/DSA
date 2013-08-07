@@ -15,10 +15,6 @@ class RabinKarp(object):
         self.hash_value = (self.hash_value - old * self.base_to_size + self.p * self.base ) % self.p
         self.base_to_size = (self.base_to_size * self.inverse_base) % self.p
 
-    def hash_value(self):
-        return self.hash_value
-
-
 def test():
     doc = 'abcdefgh'
     to_find = 'bc'
@@ -37,10 +33,10 @@ def test():
         print('hf: ', h_find.hash_value, 'hdoc: ', h_doc.hash_value)
         if h_find.hash_value == h_doc.hash_value:
             print('found match')
-        h_doc.append(ord(doc[i]))
         h_doc.skip(ord(doc[old]))
-        print('appending: ', doc[i])
-        print('skipping: ', doc[old], old)
+        print('skipping: ', doc[old], 'index: ', old, 'new hash: ', h_doc.hash_value)
+        h_doc.append(ord(doc[i]))
+        print('appending: ', doc[i], 'new hash: ', h_doc.hash_value)
         print('hf: ', h_find.hash_value, 'hdoc: ', h_doc.hash_value)
         old += 1
     else:
