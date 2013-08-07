@@ -5,7 +5,7 @@ class RabinKarp(object):
         self.p = p
         self.hash_value = 0
         self.base_to_size = 1
-        self.inverse_base = pow(self.base, self.p-1, self.p) % self.p
+        self.inverse_base = pow(self.base, self.p-2, self.p) % self.p
 
     def append(self, x):
         self.hash_value= (self.hash_value * self.base + x) % self.p
