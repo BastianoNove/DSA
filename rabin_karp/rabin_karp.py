@@ -12,36 +12,30 @@ class RabinKarp(object):
         self.base_to_size = (self.base_to_size * self.base) % self.p
 
     def skip(self, old):
-        self.hash_value = (self.hash_value - old * self.base_to_size + self.p * self.base ) % self.p
         self.base_to_size = (self.base_to_size * self.inverse_base) % self.p
+        self.hash_value = (self.hash_value - old * self.base_to_size + self.p * self.base ) % self.p
 
 def test():
     doc = 'abcdefgh'
-    to_find = 'bc'
+    to_find = 'ydef'
     h_find = RabinKarp(256, 23)
-    h_doc = RabinKarp(256, 23) 
+    h_doc = RabinKarp(256, 23)
     for letter in to_find:
-        print('appending: ', letter)
         h_find.append(ord(letter))
-    print('bulding h_doct')
     for letter in doc[:len(to_find)]:
-        print('appending : ', letter)
         h_doc.append(ord(letter))
-    
-    old = 0
+    if h_find.hash_value == h_doc.hash_value:
+        print('match found')
     for i in range(len(to_find), len(doc)):
-        print('hf: ', h_find.hash_value, 'hdoc: ', h_doc.hash_value)
+        old = doc[i-len(to_find)]
+        h_doc.skip(ord(old))
+        h_doc.append(ord(doc[i]))
         if h_find.hash_value == h_doc.hash_value:
             print('found match')
-        h_doc.skip(ord(doc[old]))
-        print('skipping: ', doc[old], 'index: ', old, 'new hash: ', h_doc.hash_value)
-        h_doc.append(ord(doc[i]))
-        print('appending: ', doc[i], 'new hash: ', h_doc.hash_value)
-        print('hf: ', h_find.hash_value, 'hdoc: ', h_doc.hash_value)
-        old += 1
+            break
     else:
         print("no match")
 
 if __name__ == '__main__':
     test()
-    
+
