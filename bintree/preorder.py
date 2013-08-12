@@ -7,6 +7,16 @@ def preorder(node):
     preorder(node.left)
     preorder(node.right)
 
+def preorder_iterative(node):
+    stack = [node]
+    while stack:
+        curr_item = stack.pop()
+        print(curr_item.key, end=' ')
+        if curr_item.right:
+            stack.append(curr_item.right) 
+        if curr_item.left:
+            stack.append(curr_item.left)
+
 if __name__ == '__main__':
     root = BinaryTree('F')
     root.left = BinaryTree('B')
@@ -18,5 +28,7 @@ if __name__ == '__main__':
     root.right.right = BinaryTree('I')
     root.right.right.left = BinaryTree('H')
     preorder(root)
+    print()
+    preorder_iterative(root)
     
 
