@@ -4,8 +4,8 @@ def preorder(node, visit=print):
     if node is None:
         return
     visit(node.key)
-    preorder(node.left)
-    preorder(node.right)
+    preorder(node.left, visit)
+    preorder(node.right, visit)
 
 def preorder_iterative(node, visit=print):
     stack = [node]
