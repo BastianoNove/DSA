@@ -1,17 +1,17 @@
 from bintree import BinaryTree
 
-def preorder(node):
+def preorder(node, visit=print):
     if node is None:
         return
-    print(node.key, end= ' ')
+    visit(node.key)
     preorder(node.left)
     preorder(node.right)
 
-def preorder_iterative(node):
+def preorder_iterative(node, visit=print):
     stack = [node]
     while stack:
         curr_item = stack.pop()
-        print(curr_item.key, end=' ')
+        visit(curr_item.key)
         if curr_item.right:
             stack.append(curr_item.right) 
         if curr_item.left:
