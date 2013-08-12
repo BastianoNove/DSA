@@ -14,8 +14,8 @@ def skyline1D(data):
     return skyline
 
 def test():
-    data = [(9,9), (2,2), (3,3), (1,1), (5,5), (7,7), (6,6), (4,4), (8,8)]
-    print(skyline1D(data))
+    points = [(2,6), (4, 7), (5, 5), (7, 5), (9, 9), (10, 4), (4, 4), (3, 2), (6, 2), (9, 1)]
+    print(skyline1D(points))
 
 if __name__ == '__main__':
     test()
