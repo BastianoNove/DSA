@@ -24,7 +24,7 @@ int insert(hash_table_t* table, int key, int data) {
   hashtable_item node = { .key = key, .data = data, .deleted = 0};
   while (i != M) {
     j = hash(key, i);
-    if ((*table)[j].isnull) {
+    if ((*table)[j].isnull || (*table)[j].deleted) {
       (*table)[j]= node;
       return j;
     }
@@ -32,30 +32,52 @@ int insert(hash_table_t* table, int key, int data) {
       i++;
     }
   }
-  assert(i!=M); //Table is full
+  assert(i!=M && "Table is full");
 }
 
 int search(hash_table_t* table, int key) {
   int i;
-  int j;
-  while (!(*table)[j].isnull || i!=M) {
-    j = hash(j, i);
+  int j = hash(key, 0);
+  while (!(*table)[j].isnull || !(*table)[j].deleted ||  i!=M) {
     if ((*table)[j].key == key) {
         return j;
     }
     else {
         i++;
+        j = hash(key, i);
     }
   }
   return -1;
 }
 
 void delete(hash_table_t* table, int key) {
-
+  int j = search(table, key);
+  if (j < 0) {
+    return;
+  }
+  (*table)[j].deleted = 1;
 }
 
+void test() {
+ srand(time(NULL));
+ int k, data, i, j;
+ hashtable_item result;
+ hash_table_t* table = create_table();
+
+ for(i = 0; i < 701; i++) {
+   k = rand();
+   data = rand();
+   insert(table, k, data);
+   j = search(table, k);
+   assert( j >= 0);
+   result = (*table)[j];
+   assert(result.key == k);
+   assert(result.data == data);
+ }
+ printf("Test passes\n");
+}
 
 int main() {
-  printf("works\n");
+  test();
   return 0;
 }
