@@ -67,12 +67,13 @@ void print_result(node_t* result) {
 
 void test() {
  srand(time(NULL));
- int k, data, i, chain_length;
+ int k, data, i, chain_length, chains;
+ int NUM_INSERTIONS = 10000;
  node_t* result;
  node_t* node;
  hash_table_t* table = create_table();
 
- for(i = 0; i < 10000; i++) {
+ for(i = 0; i < NUM_INSERTIONS; i++) {
    k = rand();
    data = rand();
    insert(table, k, data);
@@ -82,6 +83,7 @@ void test() {
    assert(result->data == data);
  }
 
+ chains = 0;
  for(i = 0; i < M; i++) {
    chain_length = 0;
    node = *table[i];
@@ -90,7 +92,12 @@ void test() {
      node = node->next;
    }
    printf("chain length %d\n", chain_length);
+   if (*table[i]) {
+    chains++;
+   }
  }
+ printf("Number of chains: %d\n", chains);
+ printf("Average chain length  for %d insertions and %d buckets: %f\n", NUM_INSERTIONS, M, (float)NUM_INSERTIONS/chains);
 }
 
 int main() {
