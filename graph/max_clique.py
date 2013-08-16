@@ -30,7 +30,8 @@ def test():
              ('g', 'b'), ('h', 'b'), ('h', 'f'), ('h', 'g'), ('a', 'b'), ('b', 'c'),
              ('c', 'd'), ('d', 'e'), ('e', 'a'), ('a', 'g'), ('b', 'g'), ('b', 'h'),
              ('f', 'h'), ('g', 'h'), ('h', 'i'), ('i', 'h'), ('g', 'i'), ('i', 'g'),
-             ('f', 'i'), ('i', 'f'), ('g', 'f'), ('f', 'g')]
+             ('f', 'i'), ('i', 'f'), ('g', 'f'), ('f', 'g'), ('c', 'h'), ('h', 'c'),
+             ('d', 'f'), ('f', 'd'), ('i', 'e'), ('e', 'i')]
     graph = graph_utils.make_graph(edges)
     clique = max_clique(graph)
     print([v.key for v in clique])
