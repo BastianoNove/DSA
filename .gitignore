@@ -16,8 +16,15 @@
 #Ignore debugging symbol files
 *.dSYM
 
+
 #Ignore compiled header files
 *.gch
+
+##############################
+# Java
+##############################
+#ignore class files
+*.class
 
 ##############################
 # MacOS 
