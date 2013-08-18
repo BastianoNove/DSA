@@ -47,12 +47,22 @@ def strongconnect(vertex, state):
                 break
         state[COMPONENTS].append(component)
 
+def print_components(components):
+    for component in components:
+        print('component: {}'.format([vertex.key for vertex in component]))
+
 def test():
     graph = graph_utils.make_graph([(1,2), (2,3), (3, 4), (3,5), (4,6), (5,7), (6,3),
                                     (7,6), (7,3)])
+    print('first test: ') 
     sccs = tarjans(graph)
-    for component in sccs:
-        print('component: {}'.format([vertex.key for vertex in component]))
+    print_components(sccs)
+    graph = graph_utils.make_graph([(1,2), (2,4), (4,3), (3,1), (5,3), (5,4), (5,6), (6,7),
+                                    (7,5), (9,8), (8, 10), (10,9), (10,11), (11,10),
+                                    (12,13), (11,13)])
+    print('second test: ') 
+    sccs = tarjans(graph)
+    print_components(sccs)
 
 if __name__ == '__main__':
     test()
