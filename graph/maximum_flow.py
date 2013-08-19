@@ -1,5 +1,6 @@
 
 from collections import defaultdict
+from collections import deque
 import graph as graph_utils
 
 class Edge(object):
@@ -35,9 +36,10 @@ def ford_fulkerson(vertices, edges, source, sink):
 
 def find_path_residual_network(vertices, edges, source, sink):
     """Finds path in residual network. Returns an iterable containing edges in the path"""
-    return dfs(vertices, edges, source, sink, [])
+    #return dfs(vertices, edges, source, sink, [])
+    return bfs(vertices, edges, deque([source]), sink, [])
 
-def dfs(vertices, edges, source, sink, visted, path = None):
+def dfs(vertices, edges, source, sink, visited, path = None):
     if path is None:
         path = []
     if source == sink:
@@ -47,16 +49,16 @@ def dfs(vertices, edges, source, sink, visted, path = None):
         #    print('({}, {}) c: {} f: {}'.format(edge.u, edge.v, edge.c, edge.f), end=", ")
         return path
     #print('source is : ', source)
-    visted.append(source)
+    visited.append(source)
     for neighbor in source.edges:
         #print('neighbor: ', neighbor)
-        if neighbor not in visted:
-            #print('neighbor not visted')
+        if neighbor not in visited:
+            #print('neighbor not visited')
             edge = edges[(source.key, neighbor.key)]
             if edge.c - edge.f > 0:
                 #print('neighbor has residual capacity')
                 new_path = path + [edges[source.key, neighbor.key]]
-                p = dfs(vertices, edges, neighbor, sink, visted, new_path)
+                p = dfs(vertices, edges, neighbor, sink, visited, new_path)
                 if p is None:
                     #print('could not find path')
                     continue
@@ -65,6 +67,25 @@ def dfs(vertices, edges, source, sink, visted, path = None):
                     return p
     return None
 
+def bfs(vertices, edges, queue, sink, visited, path = None):
+    if path is None:
+        path = []
+    source = queue.popleft()
+    if source == sink:
+        return path
+    for neighbor in source.edges:
+        if neighbor not in visited:
+            edge = edges[(source.key, neighbor.key)]
+            if edge.c - edge.f > 0:
+                #print('neighbor has residual capacity')
+                new_path = path + [edges[source.key, neighbor.key]]
+                p = dfs(vertices, edges, neighbor, sink, visited, new_path)
+                if p is None:
+                    #print('could not find path')
+                    continue
+                else:
+                    #print('found path!')
+                    return p
 
 def print_edges(edges):
     for edge in edges.values():
