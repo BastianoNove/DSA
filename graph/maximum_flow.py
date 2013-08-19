@@ -86,6 +86,7 @@ def bfs(vertices, edges, queue, sink, visited, path = None):
                 else:
                     #print('found path!')
                     return p
+    return None
 
 def print_edges(edges):
     for edge in edges.values():
