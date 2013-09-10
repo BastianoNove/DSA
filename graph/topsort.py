@@ -2,6 +2,7 @@
 
 from collections import defaultdict
 import graph as graph_utils
+import dfs
 
 def make_graph(edges):
   graph = defaultdict(list)
@@ -31,6 +32,22 @@ def topsort(graph):
       return None
   return output
 
+def topsort_dfs(graph):
+    sorted_stack = []
+    visited = []
+    visit = topsort_visit(sorted_stack) 
+    for k, v in graph.vertices.items():
+        if v not in visited:
+            dfs.dfs(v, visited, visit)
+    sorted_stack.reverse()
+    return sorted_stack 
+
+def topsort_visit(vset=None):
+    if vset is None:
+        vset = []
+    def visit(x):
+        vset.append(x)
+    return visit
 
 def test():
   graph = graph_utils.make_graph([('a','b'), ('a','d'), ('b','c'), ('c','d'),
@@ -40,7 +57,7 @@ def test():
   print([node.key for node in topsort(graph)])
   graph = graph_utils.make_graph([('g','h'), ('a', 'h'), ('a', 'b'), ('b', 'c'), ('c', 'f'), ('d', 'c'), ('d', 'e'),
                     ('e', 'f'), ('i', 'i')])
-  print([node.key for node in topsort(graph)])
-  graph = graph_utils.make_graph([(1,2), (2,3), (3,1)])
-  print([node.key for node in topsort(graph)])
+  print([node.key for node in topsort_dfs(graph)])
+  #graph = graph_utils.make_graph([(1,2), (2,3), (3,1)])
+  #print([node.key for node in topsort(graph)])
 test()
