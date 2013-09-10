@@ -14,6 +14,7 @@ def dfs(node, visited=None, visit=None):
           dfs(v, visited, visit)
     visit(node.key)
 
-g = graph.make_graph([('y','z'), ('a','b'), ('a', 'd'),  ('b', 'c'), ('c', 'd'), ('b', 'y'), ('c', 'a'), ('d', 'y'), ])
-dfs(g.vertices['a'])
+if __name__ == '__main__':
+    g = graph.make_graph([('y','z'), ('a','b'), ('a', 'd'),  ('b', 'c'), ('c', 'd'), ('b', 'y'), ('c', 'a'), ('d', 'y'), ])
+    dfs(g.vertices['a'])
 
