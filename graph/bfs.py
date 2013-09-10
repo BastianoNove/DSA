@@ -15,5 +15,6 @@ def bfs(node, visit=None):
             if vertex not in visited and vertex not in queue:
                 queue.append(vertex)
 
-g = graph.make_graph([('y','z'), ('a','b'), ('a', 'd'),  ('b', 'c'), ('c', 'd'), ('b', 'y'), ('c', 'a'), ('d', 'y'), ])
-bfs(g.vertices['a'])
+if __name__ == '__main__':
+    g = graph.make_graph([('y','z'), ('a','b'), ('a', 'd'),  ('b', 'c'), ('c', 'd'), ('b', 'y'), ('c', 'a'), ('d', 'y'), ])
+    bfs(g.vertices['a'])
