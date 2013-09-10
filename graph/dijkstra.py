@@ -27,4 +27,5 @@ def test():
     for vertex in g.vertices.values():
         print(vertex)
 
-test()
+if __name__ == '__main__':
+    test()
