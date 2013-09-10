@@ -2,13 +2,15 @@ from node import Node
 from collections import deque
 import graph
 
-def bfs(node):
+def bfs(node, visit=None):
+    if visit is None:
+        visit = print
     queue = deque([node])
     visited = []
     while queue:
         v = queue.popleft()
         visited.append(v)
-        print(v.key)
+        visit(v.key)
         for vertex in v.edges:
             if vertex not in visited and vertex not in queue:
                 queue.append(vertex)
