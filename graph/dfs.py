@@ -1,9 +1,11 @@
 from node import Node
 import graph
 
-def dfs(node, visited=[], visit=None):
+def dfs(node, visited=None, visit=None):
     if visit is None:
         visit = print
+    if visited is None:
+        visited = []
     if node in visited:
         return
     visited.append(node)
