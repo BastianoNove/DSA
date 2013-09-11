@@ -58,6 +58,8 @@ def test():
   graph = graph_utils.make_graph([('g','h'), ('a', 'h'), ('a', 'b'), ('b', 'c'), ('c', 'f'), ('d', 'c'), ('d', 'e'),
                     ('e', 'f'), ('i', 'i')])
   print([node.key for node in topsort_dfs(graph)])
-  #graph = graph_utils.make_graph([(1,2), (2,3), (3,1)])
-  #print([node.key for node in topsort(graph)])
-test()
+  graph = graph_utils.make_graph([(1,2), (2,3), (3,1)])
+  assert(topsort(graph) == None)
+
+if __name__ == '__main__':
+    test()
