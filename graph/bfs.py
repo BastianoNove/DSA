@@ -6,10 +6,10 @@ def bfs(node, visit=None):
     if visit is None:
         visit = print
     queue = deque([node])
-    visited = []
+    visited = {}
     while queue:
         v = queue.popleft()
-        visited.append(v)
+        visited[v] = True
         visit(v)
         for vertex in v.edges:
             if vertex not in visited and vertex not in queue:
