@@ -1,18 +1,33 @@
 from node import Node
 import graph
 
-def dfs(node, visited=None, visit=None):
+def dfs(node, visited=None, visit=None, visit_early=None):
+    if visit_early is None:
+        def visit_early(node):
+            return
     if visit is None:
         visit = print
     if visited is None:
         visited = []
-    if node in visited:
-        return
     visited.append(node)
     for v in node.edges:
+        visit_early(v)
         if v not in visited:
-          dfs(v, visited, visit)
+          dfs(v, visited, visit, visit_early)
     visit(node)
+
+def cycle_detection(g):
+    visited = []
+    has_cycle = False
+    def check_back_edge(node):
+        nonlocal has_cycle
+        if node in visited:
+            has_cycle = True
+    for vertex in g.vertices.values():
+        dfs(vertex, visited, None, check_back_edge)
+        if has_cycle:
+            break
+    return has_cycle
 
 parent = {}
 def dfs_2(g):
@@ -38,3 +53,7 @@ if __name__ == '__main__':
     dfs_2(g)
     for vertex in g.vertices.items():
         print(vertex)
+
+    g = graph.make_graph([('a', 'b'), ('b', 'c'), ('c', 'd'), ('d', 'a'),
+                          ('e', 'f'), ('f', 'g'), ('g', 'c')])
+    print('has cycle: '  + str(cycle_detection(g)))
