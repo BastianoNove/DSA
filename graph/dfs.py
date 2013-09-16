@@ -8,8 +8,8 @@ def dfs(node, visited=None, visit=None, visit_early=None):
     if visit is None:
         visit = print
     if visited is None:
-        visited = []
-    visited.append(node)
+        visited = {}
+    visited[node] = True
     for v in node.edges:
         visit_early(v)
         if v not in visited:
@@ -17,7 +17,7 @@ def dfs(node, visited=None, visit=None, visit_early=None):
     visit(node)
 
 def cycle_detection(g):
-    visited = []
+    visited = {}
     has_cycle = False
     def check_back_edge(node):
         nonlocal has_cycle
