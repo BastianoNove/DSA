@@ -36,7 +36,7 @@ def weights(edges, value = float('inf')):
 def init_single_source(graph, source):
     for vertex in graph.vertices.values():
         vertex.d = float('inf')
-        vertex.predecesor = None
+        vertex.predecessor = None
     source.d = 0
 
 def relax(u, v, w):
