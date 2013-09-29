@@ -1,7 +1,8 @@
 from collections import defaultdict
 import graph as graph_utils
+import heapq
 
-def dijkstra(graph, costs, start_vertex):
+def dijkstra_2(graph, costs, start_vertex):
     current_node = graph.vertices[start_vertex.key]
     graph_utils.init_single_source(graph, current_node)
     unvisited = set(graph.vertices[vertex] for vertex in graph.vertices)
@@ -16,6 +17,17 @@ def dijkstra(graph, costs, start_vertex):
             break
         min_node = min(unvisited, key=lambda x: x.d)
         current_node = min_node if min_node.d != float('inf')  and min_node in unvisited else None
+
+def dijkstra(graph, weights, start_vertex):
+    graph_utils.init_single_source(graph, start_vertex)
+    queue = [vertex for vertex in graph.vertices.values()] # vertices to process
+    heapq.heapify(queue)
+    s = [] # set of vertices with shortest path already determined
+    while queue:
+        u = heapq.heappop(queue) # extract min
+        s.append(u)
+        for v in u.edges:
+            graph_utils.relax(u, v, weights)
 
 def test():
     cost = { (1,2) : 7, (1,3) : 9, (1,6) : 14, (2,4) : 15,
