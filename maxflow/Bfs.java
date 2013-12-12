@@ -8,12 +8,12 @@ class Bfs implements Iterator<Vertex> {
   private Vertex currentVertex;
   private Queue<Vertex> queue;
   private Graph graph;
-  private HashSet<Vertex> visited;
+  private HashSet<Vertex> seen;
 
   public Bfs(Graph g, Vertex source) {
     graph = g;
     currentVertex = source;
-    visited = new HashSet<Vertex>();
+    seen = new HashSet<Vertex>();
     queue = new LinkedList<Vertex>();
     queue.offer(source);
   }
@@ -32,17 +32,19 @@ class Bfs implements Iterator<Vertex> {
       to = graph.vertices.get(edge.to);
 
       if (head == from) {
-        if (!visited.contains(to)) {
+        if (!seen.contains(to)) {
           queue.offer(to);
+          seen.add(to);
         }
       }
       else {
-        if (!visited.contains(from)) {
+        if (!seen.contains(from)) {
           queue.offer(from);
+          seen.add(to);
         }
       }
     }
-    visited.add(head);
+    seen.add(head);
     return head;
   }
   
