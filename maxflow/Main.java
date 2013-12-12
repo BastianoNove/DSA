@@ -14,6 +14,7 @@ class Main {
     g.addEdge(8, 9);
 
     Bfs iter = new Bfs(g, g.vertices.get(1));
+    //Dfs iter = new Dfs(g, g.vertices.get(1));
     Vertex current;
     while (iter.hasNext()) {
       current = iter.next();
