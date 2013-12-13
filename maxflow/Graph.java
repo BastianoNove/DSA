@@ -1,8 +1,10 @@
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.HashMap;
 
 class Graph { 
   ArrayList<Vertex> vertices;
+  HashMap<EdgeNode, Integer> edges;
 
   public Graph(int numVertices) {
     vertices = new ArrayList<Vertex>(numVertices+1);
@@ -11,12 +13,14 @@ class Graph {
     }
   }
 
-  public void addEdge(int from, int to) {
+  public void addEdge(int from, int to, int capacity) {
     Vertex fromVertex = this.vertices.get(from);
     Vertex toVertex = this.vertices.get(to);
-    EdgeNode edge = new EdgeNode(from, to, 0);
+    EdgeNode edge = new EdgeNode(from, to, 0, capacity);
+    edge.reverse = new EdgeNode(to, from, 0, capacity);
     fromVertex.edges.add(edge);
-    toVertex.edges.add(edge);
+    toVertex.edges.add(edge.reverse);
+    edges.put(edge, 1);
   }
 
   public void printGraph() {
@@ -41,12 +45,15 @@ class Vertex {
 class EdgeNode {
   int from;
   int to;
+  int capacity;
   int flow;
+  EdgeNode reverse;
 
-  public EdgeNode(int from, int to, int flow) {
+  public EdgeNode(int from, int to, int flow, int capacity) {
     this.from = from;
     this.to = to;
     this.flow = flow;
+    this.capacity = capacity;
   }
 }
 
