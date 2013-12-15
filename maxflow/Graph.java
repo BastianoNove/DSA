@@ -10,6 +10,7 @@ class Graph {
     for(int i = 0; i <= numVertices; i++) {
       vertices.add(new Vertex(i));
     }
+    edges = new HashMap<EdgeNode, Integer>();
   }
 
   public void addEdge(int from, int to, int capacity) {
@@ -17,6 +18,7 @@ class Graph {
     Vertex toVertex = this.vertices.get(to);
     EdgeNode edge = new EdgeNode(from, to, 0, capacity);
     edge.reverse = new EdgeNode(to, from, 0, capacity);
+    edge.reverse.forward = edge;
     fromVertex.edges.add(edge);
     toVertex.edges.add(edge.reverse);
     edges.put(edge, 1);
@@ -47,12 +49,21 @@ class EdgeNode {
   int capacity;
   int flow;
   EdgeNode reverse;
+  EdgeNode forward;
 
   public EdgeNode(int from, int to, int flow, int capacity) {
     this.from = from;
     this.to = to;
     this.flow = flow;
     this.capacity = capacity;
+  }
+
+  public boolean isBackward() {
+      return this.reverse == null;
+  }
+
+  public boolean isForward() {
+	  return this.forward == null;
   }
 }
 
