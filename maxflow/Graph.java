@@ -25,7 +25,7 @@ class Graph {
   public void printGraph() {
     Vertex curr;
     for(int i = 1; i < vertices.size(); i++) {
-      curr = vertices.get(i); 
+      curr = vertices.get(i);
       System.out.println(curr + " key: " + curr.key);
     }
   }
@@ -37,7 +37,7 @@ class Vertex {
 
   public Vertex(int k) {
     this.edges = new ArrayList<EdgeNode>();
-    this.key = k; 
+    this.key = k;
   }
 }
 
