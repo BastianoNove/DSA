@@ -1,8 +1,37 @@
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Scanner;
 
 class MaxFlow {
+  static HashMap<String, Integer> mappings;
+  static int k;
+
   public static void main(String args[]) {
+      Scanner scanner = new Scanner(System.in);
+      int from, to, capacity;
+
+      int N = scanner.nextInt();
+      mappings = new HashMap<String, Integer>(N);
+      k = 0;
+      Graph g = new Graph(N);
+      while(scanner.hasNext()) {
+          from = translateChar(scanner.next());
+          to = translateChar(scanner.next());
+          capacity = Integer.parseInt(scanner.next());
+          g.addEdge(from, to, capacity);
+      }
+      Vertex source = g.vertices.get(translateChar("A"));
+      Vertex target = g.vertices.get(translateChar("Z"));
+      System.out.println(maxFlow(g, source, target));
+  }
+
+  public static int translateChar(String chr) {
+     if (mappings.containsKey(chr)) {
+         return mappings.get(chr).intValue();
+     }
+     mappings.put(chr, ++k);
+     return k;
   }
 
   public static int maxFlow(Graph g, Vertex source, Vertex target) {
