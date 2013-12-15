@@ -42,11 +42,11 @@ class MaxFlow {
       while (path != null) {
          minResidual = findMinResidual(path);
          for (EdgeNode edge : path) {
-             if (g.edges.containsKey(edge)) {
+             if (edge.isForward()) {
                  edge.flow = edge.flow + minResidual;
              }
              else {
-                 edge.reverse.flow = edge.reverse.flow - minResidual;
+                 edge.flow = edge.flow - minResidual;
              }
          }
          path = DfsPath.Dfs(g, source, target, new ArrayList<EdgeNode>(),
@@ -60,9 +60,8 @@ class MaxFlow {
       if (path.size() < 1) {
           return 0;
       }
-      EdgeNode firstEdge = path.get(0);
-      minResidual = firstEdge.capacity - firstEdge.flow;
 
+      minResidual = Integer.MAX_VALUE;
       for (EdgeNode edge : path) {
           if (edge.capacity - edge.flow < minResidual) {
               minResidual = edge.capacity - edge.flow;
@@ -74,8 +73,8 @@ class MaxFlow {
   public static int vertexFlow(Vertex vertex) {
       int flow = 0;
       for (EdgeNode edge : vertex.edges) {
-          if (edge.reverse != null) {
-              flow += edge.flow;
+          if (edge.isBackward()) {
+              flow += edge.forward.flow;
           }
       }
       return flow;
