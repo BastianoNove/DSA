@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-class Graph { 
+class Graph {
   ArrayList<Vertex> vertices;
   HashMap<EdgeNode, Integer> edges;
 
