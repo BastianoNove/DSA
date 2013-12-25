@@ -44,9 +44,11 @@ class MaxFlow {
          for (EdgeNode edge : path) {
              if (edge.isForward()) {
                  edge.flow = edge.flow + minResidual;
+                 edge.reverse.flow = edge.reverse.flow - minResidual;
              }
              else {
-                 edge.flow = edge.flow - minResidual;
+                 edge.flow = edge.flow + minResidual;
+                 edge.forward.flow = edge.forward.flow - minResidual;
              }
          }
          path = DfsPath.Dfs(g, source, target, new ArrayList<EdgeNode>(),

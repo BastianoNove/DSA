@@ -17,7 +17,7 @@ class Graph {
     Vertex fromVertex = this.vertices.get(from);
     Vertex toVertex = this.vertices.get(to);
     EdgeNode edge = new EdgeNode(from, to, 0, capacity);
-    edge.reverse = new EdgeNode(to, from, 0, capacity);
+    edge.reverse = new EdgeNode(to, from, capacity, capacity);
     edge.reverse.forward = edge;
     fromVertex.edges.add(edge);
     toVertex.edges.add(edge.reverse);
