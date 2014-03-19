@@ -12,9 +12,11 @@ class UnionFind(object):
 
     def find(self, node):
         '''Returns root of the tree this node belongs to '''
-        while node.parent:
-            node = node.parent
-        return node
+        if node.parent is not None:
+            node.parent = self.find(node.parent)
+        elif node.parent is None:
+            return node
+        return node.parent
 
     def union(self, a, b):
         '''Merge a's tree with b's tree
@@ -40,6 +42,8 @@ def test():
     flight = uf.network['flight']
     pieces  = uf.network['pieces']
     distance = uf.network['distance']
+    test = uf.network['test']
+    the = uf.network['the']
 
     assert(are.parent == None)
     assert(distance.parent == None)
@@ -51,6 +55,9 @@ def test():
     assert(uf.find(distance) == uf.find(flight))
     distance_root = uf.find(distance)
     assert(distance_root and distance_root.rank == 1)
+    uf.union(test, the)
+    uf.union(the, distance)
+    assert(uf.find(test) == distance)
     print 'tests pass'
 
 if __name__ == '__main__':
