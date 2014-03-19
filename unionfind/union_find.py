@@ -24,7 +24,12 @@ class UnionFind(object):
         root_b = self.find(b)
         if root_a == root_b:
             return root_a
+        if root_a.rank > root_b.rank:
+            root_b.parent = root_a
+            return root_a
 
+        if root_a.rank == root_b.rank:
+            root_b.rank += 1
         root_a.parent = root_b
         return root_b
 
@@ -44,6 +49,8 @@ def test():
     uf.union(pieces, flight)
     uf.union(are, flight)
     assert(uf.find(distance) == uf.find(flight))
+    distance_root = uf.find(distance)
+    assert(distance_root and distance_root.rank == 1)
     print 'tests pass'
 
 if __name__ == '__main__':
