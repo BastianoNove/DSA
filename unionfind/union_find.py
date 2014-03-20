@@ -29,11 +29,13 @@ class UnionFind(object):
             return root_a
         if root_a.rank > root_b.rank:
             root_b.parent = root_a
+            root_a.count = root_b.count + root_a.count
             return root_a
 
         if root_a.rank == root_b.rank:
             root_b.rank += 1
         root_a.parent = root_b
+        root_b.count = root_a.count + root_b.count
         return root_b
 
 def test():
