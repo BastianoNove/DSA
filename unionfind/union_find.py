@@ -1,7 +1,8 @@
 class Node(object):
-    def __init__(self, data, parent=None, rank=0):
+    def __init__(self, data, parent=None, rank=0, count=1):
         self.data = data
         self.rank = rank
+        self.count = count
         self.parent = parent
 
 class UnionFind(object):
