@@ -9,7 +9,7 @@ int hash(int key, int index) {
     return ((key % M) + index) % M;
 }
 
-hash_table_t* create_table() {
+hash_table_t* create_table(void) {
   int i;
   hash_table_t* table = malloc(sizeof(hash_table_t));
   for(i = 0; i < M; i++) {
@@ -58,7 +58,7 @@ void delete(hash_table_t* table, int key) {
   (*table)[j].deleted = 1;
 }
 
-void test() {
+void test(void) {
  srand(time(NULL));
  int k, data, i, j;
  hashtable_item result;
@@ -77,7 +77,7 @@ void test() {
  printf("Test passes\n");
 }
 
-int main() {
+int main(void) {
   test();
   return 0;
 }

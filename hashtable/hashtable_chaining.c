@@ -51,7 +51,7 @@ void delete(hash_table_t* table, int key) {
   }
 }
 
-hash_table_t* create_table() {
+hash_table_t* create_table(void) {
   hash_table_t* table = malloc(sizeof(hash_table_t));
   memset(*table, 0, M*sizeof(table[0]));
   return table;
@@ -65,7 +65,7 @@ void print_result(node_t* result) {
   printf("key %d found. Value: %d\n", result->key, result->data); 
 }
 
-void test() {
+void test(void) {
  srand(time(NULL));
  int k, data, i, chain_length, chains;
  int NUM_INSERTIONS = 10000;
@@ -100,7 +100,7 @@ void test() {
  printf("Average chain length  for %d insertions and %d buckets: %f\n", NUM_INSERTIONS, M, (float)NUM_INSERTIONS/chains);
 }
 
-int main() {
+int main(void) {
   printf("hashtable test\n");
   test();
   return 0;
